@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>У сазана свадьба! — Анимированный анекдот</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .scene {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background: linear-gradient(to bottom, #4a90e2, #2c3e50);
+            position: relative;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .fisherman {
+            font-size: 60px;
+            z-index: 2;
+        }
+        .frog {
+            font-size: 40px;
+            position: absolute;
+            bottom: 35px;
+            left: 250px;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+        .frog.active {
+            transform: scale(1);
+        }
+        .dialogue-box {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #f1c40f;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 60px;
+            font-size: 18px;
+            line-height: 1.4;
+            box-sizing: border-box;
+        }
+        .btn {
+            margin-top: 20px;
+            background: #f1c40f;
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #f39c12;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="scene">
+        <div class="dialogue-box" id="dialogue">Нажмите «Далее», чтобы начать историю...</div>
+        <div class="fisherman">🧘‍♂️🎣</div>
+        <div class="frog" id="frog">🐸</div>
+    </div>
+
+    <button class="btn" id="nextBtn" onclick="nextStep()">Далее</button>
+
+    <script>
+        const steps = [
+            "Мужик сидит с удочкой на берегу уже три часа. Поплавок даже не шевелится...",
+            "Вдруг из воды выныривает лягушка и смотрит на него с ухмылкой.",
+            "Лягушка: — Эй, рыбак! Ну что, поймал кого-нибудь?",
+            "Мужик (устало): — Да тихо ты... Ни единой поклевки.",
+            "Лягушка: — Эх ты, дурак! Какая тебе рыбалка сегодня? У сазана свадьба! Все речные ушли туда гулять!",
+            "Мужик бросает удочку: — Ну раз такое дело... Где банкет? 🍷🐟"
+        ];
+        
+        let currentStep = 0;
+        const dialogueElem = document.getElementById("dialogue");
+        const frogElem = document.getElementById("frog");
+        const btnElem = document.getElementById("nextBtn");
+
+        function nextStep() {
+            currentStep++;
+            if (currentStep < steps.length) {
+                dialogueElem.innerText = steps[currentStep];
+                if (currentStep >= 1) {
+                    frogElem.classList.add("active");
+                }
+                if (currentStep === steps.length - 1) {
+                    btnElem.innerText = "Сначала";
+                }
+            } else {
+                currentStep = 0;
+                dialogueElem.innerText = steps[0];
+                frogElem.classList.remove("active");
+                btnElem.innerText = "Далее";
+            }
+        }
+    </script>
+</body>
+</html>
